@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16.3)
 project (StudentSystem)
 
+#Target
 add_executable(MyStudentSystem MyStudentSystem.cpp
                 src/Operations.cpp
                 src/DisplayAllOperations.cpp)
