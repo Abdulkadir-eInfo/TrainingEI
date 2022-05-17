@@ -22,17 +22,17 @@ int main()
         switch(choice)
         {
             case 1: ob.enterdetail();
-               break;
+                    break;
             case 2: ob.showdetail();
-                break;
+                    break;
             case 3: ob.deletedetail();
-                break;
+                    break;
             case 4: ob.displayall();
-                break;
+                    break;
             case 5: cout << "Quitting you out\n";
-                  break;
+                    break;
             default: cout << "Enter Valid Choice!!!" << endl;
-                break;
+                    break;
         }
     }
     return 0;
