@@ -2,7 +2,6 @@
 Student System that stores student details in a file, retrieve it for operations
 Operations provided are: Enter Detail; Show details by ID; Delete Student details(using id);Display all student details
 ************************************************************************************************************************/
-
 #include<iostream>
 #include "Operations.h"
 using namespace std;

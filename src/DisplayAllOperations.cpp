@@ -14,6 +14,7 @@ void DisplayAllOperation::displayall()
     try
     {
         file_read.open("student.txt",ios::in);
+        
         /*Getting each line in a string and print it.*/
         while ( getline(file_read,str1) )
         {

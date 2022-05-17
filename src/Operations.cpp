@@ -28,7 +28,6 @@ int Operations::enterdetail()
         cout << "\nInvalid Input, ID must be between 001 to 999 only" << endl;
         return 0;
     }
-
     if(id_input.length()==2)
     {
         id = "0"+id_input;
