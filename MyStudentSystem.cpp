@@ -1,17 +1,17 @@
 /***********************************************************************************************************************
-Student System that stores student details in a file, retrieve it for operations
-Operations provided are: Enter Detail; Show details by ID; Delete Student details(using id);Display all student details
+* Student System that stores student details in a file, retrieve it for operations
+* Operations provided are: Enter Detail; Show details by ID; Delete Student details(using id);Display all student details
 ************************************************************************************************************************/
 #include<iostream>
 #include "Operations.h"
 using namespace std;
 
-//MAIN
+/** MAIN */
 int main()
 {
     int choice=1;
     cout << "Welcome to the Student System!!!!" << endl;
-    Operations ob;//Object of the Operations Class.
+    Operations ob;  /**< Object of the Operations Class */
     while(choice!=5)
     {
         cout << "\nMenu:" << endl;

@@ -5,7 +5,7 @@
 #include "Operations.h"
 using namespace std;
 
-/*Enter student details in the file*/
+/** Enter student details in the file */
 int Operations::enterdetail()
 {
     string id_input,id;
@@ -19,10 +19,10 @@ int Operations::enterdetail()
         return 0;
     }
 
-    /*Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only*/
+    /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
     id_input.erase(0, id_input.find_first_not_of('0'));
     
-    /*Converting input id to standard form i.e. 001,011,111*/
+    /** Converting input id to standard form i.e. 001,011,111 */
     if(id_input.length()>3 || id_input.length()==0)
     {
         cout << "\nInvalid Input, ID must be between 001 to 999 only" << endl;
@@ -41,19 +41,19 @@ int Operations::enterdetail()
         id=id_input;
     }
 
-    /*Checking if the student details with given id already exists!!!*/
+    /** Checking if the student details with given id already exists!!! */
     ifstream file_read;
     string str1,str2,check;
     int is_id_already_present=0;
 
     file_read.open("student.txt",ios::in);
     
-    /*loop will run until we get line copied into the string i.e. until we reach last line*/
+    /** loop will run until we get line copied into the string i.e. until we reach last line */
     while ( getline(file_read,str1) )
     {   str2=str1;
-        /*get first three characters from the line(which will contain the id of the student)*/
+        /** Get first three characters from the line(which will contain the id of the student) */
         check=str2.substr(0,3);
-        /*Check if user provided id and id of the student entry is same or not.*/
+        /** Check if user provided id and id of the student entry is same or not */
         if(check==id)
         {
             is_id_already_present=1;
@@ -62,9 +62,9 @@ int Operations::enterdetail()
     }
     file_read.close();
 
-    /*
-    *If there exists a Student entry with the user-input id
-    *ID will be unique for each student
+    /**
+    * If there exists a Student entry with the user-input id
+    * ID will be unique for each student
     */
     if(is_id_already_present==1)
     {
@@ -80,15 +80,15 @@ int Operations::enterdetail()
     cin >> location;
     ofstream file_write;
 
-    /*Exception Handling to handle file exceptions*/
+    /** Exception Handling to handle file exceptions */
     try
     {
         file_write.open("student.txt",ios::app);
         file_write << id << "\t" << name << "\t" << branch << "\t" << location << endl;
 
-        /*
-        *Checking for good bit
-        *The good( ) function returns a non-zero (true) value when no error has occurred; otherwise returns zero (false).
+        /**
+        * Checking for good bit
+        * The good( ) function returns a non-zero (true) value when no error has occurred; otherwise returns zero (false).
         */
         if(file_write.good())
             cout << "Student Data Inserted Successfully" << endl;
@@ -102,7 +102,7 @@ int Operations::enterdetail()
     return 0;
 }
 
-/*Show student details for given ID, reading from file*/
+/** Show student details for given ID, reading from file */
 void Operations::showdetail()
 {
     int is_user_present=0;
@@ -110,7 +110,7 @@ void Operations::showdetail()
     string str1,str2,check;
     cout << "\nEnter the id of the student you want to show data: ";
     cin >> input_id;
-    /*Converting input id to standard form i.e. 001,011,111 for proper checking with stduent entries present.*/
+    /** Converting input id to standard form i.e. 001,011,111 for proper checking with stduent entries present */
     if(input_id.length()==2)
     {
         to_check = "0"+input_id;
@@ -125,7 +125,7 @@ void Operations::showdetail()
     }
     ifstream file_read;
 
-    /*Exception Handling to handle file exceptions*/
+    /** Exception Handling to handle file exceptions */
     try
     {
         file_read.open("student.txt",ios::in);
@@ -153,7 +153,7 @@ void Operations::showdetail()
     }
 }
 
-/*Delete student details with given ID*/
+/** Delete student details with given ID */
 void Operations::deletedetail()
 {
     int is_student_present=0;
@@ -173,9 +173,9 @@ void Operations::deletedetail()
         to_check=input_id;
     }
 
-    fstream file_readwrite;//For student.txt file
-    fstream file_readwrite_bkp;//For studentbckp.txt file
-    /*Exception Handling to handle file exceptions*/
+    fstream file_readwrite;    /**< For student.txt file */
+    fstream file_readwrite_bkp;     /**< For studentbckp.txt file */
+    /** Exception Handling to handle file exceptions */
     try
     {
         file_readwrite.open("student.txt",ios::in);
@@ -184,7 +184,7 @@ void Operations::deletedetail()
         {   
             str2=str1;
             check=str2.substr(0,3);
-            /*If the id is same as the id provided by user, the entry of that student in studentbckp.txt will be skipped.*/
+            /** If the id is same as the id provided by user, the entry of that student in studentbckp.txt will be skipped */
             if(check==to_check)
             {
                 is_student_present=1;
@@ -196,7 +196,7 @@ void Operations::deletedetail()
         file_readwrite.close();
         file_readwrite_bkp.close();
 
-        /*Copying data from backup to back into the original file*/
+        /** Copying data from backup to back into the original file */
         file_readwrite_bkp.open("studentbckp.txt",ios::in);
         file_readwrite.open("student.txt",ios::out);
         while ( getline(file_readwrite_bkp,str1) )
