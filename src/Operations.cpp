@@ -222,5 +222,3 @@ void Operations::deletedetail()
     }
 
 }
-
-
