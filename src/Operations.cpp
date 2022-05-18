@@ -105,7 +105,7 @@ int Operations::enterdetail()
 /** Show student details for given ID, reading from file */
 void Operations::showdetail()
 {
-    int is_user_present=0;
+    int is_studentdetail_present=0;
     string to_check,input_id;
     string str1,str2,check;
     cout << "\nEnter the id of the student you want to show data: ";
@@ -135,14 +135,14 @@ void Operations::showdetail()
             check=str2.substr(0,3);
             if(check==to_check)
             {
-                is_user_present=1;
+                is_studentdetail_present=1;
                 cout << "\nId\tName\tBranch\tLocation" << endl;
                 cout << str1 << endl;
             }
         }
         file_read.close();
 
-        if(is_user_present==0)
+        if(is_studentdetail_present==0)
             cout << "Student record not found!!!" << endl;
 
     }
@@ -156,7 +156,7 @@ void Operations::showdetail()
 /** Delete student details with given ID */
 void Operations::deletedetail()
 {
-    int is_student_present=0;
+    int is_studentdetail_present=0;
     string str1,str2,deleted_string,to_check,check,input_id;
     cout << "\nEnter the id of the student you want to delete: ";
     cin >> input_id;
@@ -187,7 +187,7 @@ void Operations::deletedetail()
             /** If the id is same as the id provided by user, the entry of that student in studentbckp.txt will be skipped */
             if(check==to_check)
             {
-                is_student_present=1;
+                is_studentdetail_present=1;
                 deleted_string=str2;
                 continue;
             }
@@ -207,9 +207,9 @@ void Operations::deletedetail()
         file_readwrite_bkp.close();
         file_readwrite.close();
 
-        if(is_student_present==0)
+        if(is_studentdetail_present==0)
             cout << "Student record not found!!!" << endl;
-        else if(is_student_present==1)
+        else if(is_studentdetail_present==1)
             cout << "\nFollowing record of Student deleted successfully:\n" << deleted_string << endl; 
 
     }

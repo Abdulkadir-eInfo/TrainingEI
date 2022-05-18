@@ -9,7 +9,7 @@ using namespace std;
 void DisplayAllOperation::displayall()
 {
     string str1,str2;
-    int is_user_present=0;  /**< check if there is user entry present or not */
+    int is_studentdetail_present=0;  /**< check if there is user entry present or not */
     ifstream file_read;
     try
     {
@@ -18,17 +18,17 @@ void DisplayAllOperation::displayall()
         /** Getting each line in a string and print it */
         while ( getline(file_read,str1) )
         {
-            if(is_user_present==0)
+            if(is_studentdetail_present==0)
             {
                 /** print the header line for the first time only */
                 cout << "\nId\tName\tBranch\tLocation" << endl;
             }
-            is_user_present=1;
+            is_studentdetail_present=1;
             str2=str1;
             cout << str1 << endl;
         }
         file_read.close();
-        if(is_user_present==0) 
+        if(is_studentdetail_present==0) 
         {
             cout << "\nNo Student Record Present!!!" << endl;
         }
