@@ -85,7 +85,6 @@ int Operations::enterdetail()
     {
         file_write.open("student.txt",ios::app);
         file_write << id << "\t" << name << "\t" << branch << "\t" << location << endl;
-
         /**
         * Checking for good bit
         * The good( ) function returns a non-zero (true) value when no error has occurred; otherwise returns zero (false).
@@ -103,7 +102,7 @@ int Operations::enterdetail()
 }
 
 /** Show student details for given ID, reading from file */
-void Operations::showdetail()
+void Operations::showdetail() /**< Virtual Function Definition in Derived Class */
 {
     int is_studentdetail_present=0;
     string to_check,input_id;

@@ -39,3 +39,35 @@ void DisplayAllOperation::displayall()
         file_read.close();
     }
 }
+
+
+int DisplayAllOperation::count_students()
+{
+    string str1;
+    int count=0;
+    ifstream file_read;
+    try
+    {
+        file_read.open("student.txt",ios::in);
+
+        /** Getting each line in a string and print it */
+        while ( getline(file_read,str1) )
+        {
+            count++;
+        }
+        file_read.close();
+    }
+    catch(exception& e)
+    {
+        cout << "Exception caught" << endl;
+        file_read.close();
+    }
+    return count;
+}
+
+
+int DisplayAllOperation::displayall(int x){
+    displayall();
+    int count=count_students();
+    return count;
+}

@@ -10,28 +10,32 @@ using namespace std;
 int main()
 {
     int choice=1;
+    int count;
     cout << "Welcome to the Student System!!!!" << endl;
     Operations ob;  /**< Object of the Operations Class */
-    while(choice!=5)
+    while(choice!=6)
     {
         cout << "\nMenu:" << endl;
-        cout << "1.Enter the student detail\n2.Find student\n3.Delete a Student\n4.Display All Student Details\n5.Quit" << endl;
+        cout << "1.Enter the student detail\n2.Find student\n3.Delete a Student\n4.Display All Student Details\n5.Display All Student Details(With Count)\n6.Quit" << endl;
         cout << "Enter your Choice:";
         cin >> choice;
         switch(choice)
         {
-            case 1: ob.enterdetail();
-                    break;
-            case 2: ob.showdetail();
-                    break;
-            case 3: ob.deletedetail();
-                    break;
-            case 4: ob.displayall();
-                    break;
-            case 5: cout << "Quitting you out\n";
-                    break;
-            default: cout << "Enter Valid Choice!!!" << endl;
-                    break;
+                case 1: ob.enterdetail();
+                        break;
+                case 2: ob.showdetail();
+                        break;
+                case 3: ob.deletedetail();
+                        break;
+                case 4: ob.displayall();
+                        break;
+                case 5: count = ob.displayall(0);
+                        cout << "Total Student Entries :" << count << endl;
+                        break;
+                case 6: cout << "Quitting you out\n";
+                        break;
+                default: cout << "Enter Valid Choice!!!" << endl;
+                        break;
         }
     }
     return 0;
