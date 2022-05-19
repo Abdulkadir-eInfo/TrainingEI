@@ -3,7 +3,7 @@
 * Operations provided are: Enter Detail; Show details by ID; Delete Student details(using id);Display all student details
 ************************************************************************************************************************/
 #include<iostream>
-#include "Operations.h"
+#include "DisplayOperations.h"
 using namespace std;
 
 /** MAIN */
@@ -12,7 +12,7 @@ int main()
     int choice=1;
     int count;
     cout << "Welcome to the Student System!!!!" << endl;
-    Operations ob;  /**< Object of the Operations Class */
+    DisplayAllOperation ob;  /**< Object of the DisplayAllOperations Class */
     while(choice!=6)
     {
         cout << "\nMenu:" << endl;
@@ -21,16 +21,16 @@ int main()
         cin >> choice;
         switch(choice)
         {
-                case 1: ob.enterdetail();
+                case 1: ob.enterdetail(); //!< Entering Student details
                         break;
-                case 2: ob.showdetail();
+                case 2: ob.showdetail(); //!< Showing Student details
                         break;
-                case 3: ob.deletedetail();
+                case 3: ob.deletedetail(); //!< Delete a student detail
                         break;
-                case 4: ob.displayall();
+                case 4: ob.displayall(); //!< Display all student entries
                         break;
-                case 5: count = ob.displayall(0);
-                        cout << "Total Student Entries :" << count << endl;
+                case 5: count = ob.displayall(0); //!< Display all student entries with getting count of entries in return type
+                        cout << "Total Student Entries :" << count << endl; 
                         break;
                 case 6: cout << "Quitting you out\n";
                         break;

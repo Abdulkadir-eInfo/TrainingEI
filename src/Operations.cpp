@@ -13,63 +13,10 @@ int Operations::enterdetail()
 	cout << "\nEnter the student details:" << endl;
 	cout << "ID(1 to 999):";
 	cin >> id_input;
-    if(id_input=="0")
-    {
-        cout << "\nInvalid Input, ID must be between 1 to 999 only\n" << endl;
+
+    id=check_id_before_entering(id_input);
+    if(id=="-1"){
         return 0;
-    }
-
-    /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
-    id_input.erase(0, id_input.find_first_not_of('0'));
-    
-    /** Converting input id to standard form i.e. 001,011,111 */
-    if(id_input.length()>3 || id_input.length()==0)
-    {
-        cout << "\nInvalid Input, ID must be between 001 to 999 only" << endl;
-        return 0;
-    }
-    if(id_input.length()==2)
-    {
-        id = "0"+id_input;
-    }
-    else if(id_input.length()==1)
-    {
-        id = "00"+id_input;
-    }
-    else
-    {
-        id=id_input;
-    }
-
-    /** Checking if the student details with given id already exists!!! */
-    ifstream file_read;
-    string str1,str2,check;
-    int is_id_already_present=0;
-
-    file_read.open("student.txt",ios::in);
-    
-    /** loop will run until we get line copied into the string i.e. until we reach last line */
-    while ( getline(file_read,str1) )
-    {   str2=str1;
-        /** Get first three characters from the line(which will contain the id of the student) */
-        check=str2.substr(0,3);
-        /** Check if user provided id and id of the student entry is same or not */
-        if(check==id)
-        {
-            is_id_already_present=1;
-            break;
-        }
-    }
-    file_read.close();
-
-    /**
-    * If there exists a Student entry with the user-input id
-    * ID will be unique for each student
-    */
-    if(is_id_already_present==1)
-    {
-        cout << "Student Data with given id already exists" << endl;
-        return -1;
     }
 
     cout << "Name:";
@@ -123,7 +70,7 @@ void Operations::showdetail() /**< Virtual Function Definition in Derived Class 
         to_check=input_id;
     }
     ifstream file_read;
-
+    file_read.exceptions ( ifstream::badbit );
     /** Exception Handling to handle file exceptions */
     try
     {
@@ -139,17 +86,15 @@ void Operations::showdetail() /**< Virtual Function Definition in Derived Class 
                 cout << str1 << endl;
             }
         }
-        file_read.close();
-
         if(is_studentdetail_present==0)
             cout << "Student record not found!!!" << endl;
 
     }
-    catch(exception& e)
+    catch(const ifstream::failure& e)
     {
-        cout << "Exception caught" << endl;
-        file_read.close();
+        cout << "Exception opening/reading file";
     }
+    file_read.close();
 }
 
 /** Delete student details with given ID */
@@ -159,6 +104,10 @@ void Operations::deletedetail()
     string str1,str2,deleted_string,to_check,check,input_id;
     cout << "\nEnter the id of the student you want to delete: ";
     cin >> input_id;
+
+    /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
+    input_id.erase(0, input_id.find_first_not_of('0'));
+    
     if(input_id.length()==2)
     {
         to_check = "0"+input_id;

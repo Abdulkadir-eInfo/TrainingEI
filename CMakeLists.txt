@@ -4,5 +4,6 @@ project (StudentSystem)
 #Target
 add_executable(MyStudentSystem MyStudentSystem.cpp
                 src/Operations.cpp
-                src/DisplayAllOperations.cpp)
+                src/Base.cpp
+                src/DisplayOperations.cpp)
 target_include_directories(MyStudentSystem PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
