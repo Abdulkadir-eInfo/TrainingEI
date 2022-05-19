@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include <fstream>
 #include <exception>
 #include "Base.h"
@@ -17,17 +16,17 @@ string BaseOperations::check_id_before_entering(string id_input){
     /** Checking if the user inputted id has only numbers */
     bool id_is_Number=true;
     for(char c:id_input){
-        if(isdigit(c)==0)
+        if(0==isdigit(c))
             id_is_Number=false;
     }
     
-    if(id_is_Number==false){
+    if(false==id_is_Number){
         cout << "Student ID can only consist Numbers" << endl;
         return "-1";
     }
 
     /** Checking if the user inputted id is 0 */
-    if(id_input=="0")
+    if("0"==id_input)
     {
         cout << "\nInvalid Input, ID must be between 1 to 999 only\n" << endl;
         return "-1";
@@ -37,16 +36,16 @@ string BaseOperations::check_id_before_entering(string id_input){
     id_input.erase(0, id_input.find_first_not_of('0'));
     
     /** Converting input id to standard form i.e. 001,011,111 */
-    if(id_input.length()>3 || id_input.length()==0)
+    if(3<id_input.length() || 0==id_input.length())
     {
         cout << "\nInvalid Input, ID must be between 1 to 999 only" << endl;
         return "-1";
     }
-    if(id_input.length()==2)
+    if(2==id_input.length())
     {
         id = "0"+id_input;
     }
-    else if(id_input.length()==1)
+    else if(1==id_input.length())
     {
         id = "00"+id_input;
     }
@@ -87,7 +86,7 @@ string BaseOperations::check_id_before_entering(string id_input){
     * If there exists a Student entry with the user-input id
     * ID will be unique for each student
     */
-    if(is_id_already_present==1)
+    if(1==is_id_already_present)
     {
         cout << "Student Data with given id already exists" << endl;
         return "-1";

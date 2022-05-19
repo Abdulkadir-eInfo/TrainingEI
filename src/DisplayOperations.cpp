@@ -19,7 +19,7 @@ void DisplayAllOperation::displayall()
         /** Getting each line in a string and print it */
         while ( getline(file_read,str1) )
         {
-            if(is_studentdetail_present==0)
+            if(0==is_studentdetail_present)
             {
                 /** print the header line for the first time only */
                 cout << "\nId\tName\tBranch\tLocation" << endl;
@@ -28,7 +28,7 @@ void DisplayAllOperation::displayall()
             str2=str1;
             cout << str1 << endl;
         }
-        if(is_studentdetail_present==0) 
+        if(0==is_studentdetail_present) 
         {
             cout << "\nNo Student Record Present!!!" << endl;
         }

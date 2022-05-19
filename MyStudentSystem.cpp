@@ -13,7 +13,7 @@ int main()
     int count;
     cout << "Welcome to the Student System!!!!" << endl;
     DisplayAllOperation ob;  /**< Object of the DisplayAllOperations Class */
-    while(choice!=6)
+    while(6!=choice)
     {
         cout << "\nMenu:" << endl;
         cout << "1.Enter the student detail\n2.Find student\n3.Delete a Student\n4.Display All Student Details\n5.Display All Student Details(With Count)\n6.Quit" << endl;

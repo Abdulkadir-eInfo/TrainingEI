@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include <fstream>
 #include <exception>
 #include "Operations.h"
@@ -15,7 +14,7 @@ int Operations::enterdetail()
 	cin >> id_input;
 
     id=check_id_before_entering(id_input);
-    if(id=="-1"){
+    if("-1"==id){
         return 0;
     }
 
@@ -57,11 +56,11 @@ void Operations::showdetail() /**< Virtual Function Definition in Derived Class 
     cout << "\nEnter the id of the student you want to show data: ";
     cin >> input_id;
     /** Converting input id to standard form i.e. 001,011,111 for proper checking with stduent entries present */
-    if(input_id.length()==2)
+    if(2==input_id.length())
     {
         to_check = "0"+input_id;
     }
-    else if(input_id.length()==1)
+    else if(1==input_id.length())
     {
         to_check = "00"+input_id;
     }
@@ -86,7 +85,7 @@ void Operations::showdetail() /**< Virtual Function Definition in Derived Class 
                 cout << str1 << endl;
             }
         }
-        if(is_studentdetail_present==0)
+        if(0==is_studentdetail_present)
             cout << "Student record not found!!!" << endl;
 
     }
@@ -108,11 +107,11 @@ void Operations::deletedetail()
     /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
     input_id.erase(0, input_id.find_first_not_of('0'));
     
-    if(input_id.length()==2)
+    if(2==input_id.length())
     {
         to_check = "0"+input_id;
     }
-    else if(input_id.length()==1)
+    else if(1==input_id.length())
     {
         to_check = "00"+input_id;
     }
@@ -155,9 +154,9 @@ void Operations::deletedetail()
         file_readwrite_bkp.close();
         file_readwrite.close();
 
-        if(is_studentdetail_present==0)
+        if(0==is_studentdetail_present)
             cout << "Student record not found!!!" << endl;
-        else if(is_studentdetail_present==1)
+        else if(1==is_studentdetail_present)
             cout << "\nFollowing record of Student deleted successfully:\n" << deleted_string << endl; 
 
     }
