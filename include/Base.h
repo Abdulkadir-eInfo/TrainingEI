@@ -1,7 +1,7 @@
 #ifndef BASE_H
 #define BASE_H
 
-class BaseClass
+class BaseOperations
 {
 	public:
     std::string check_id_before_entering(std::string); //!< ID checking for proper format

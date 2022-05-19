@@ -2,7 +2,7 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-class Operations:public BaseClass
+class Operations:public BaseOperations
 {
 	public:
 	int enterdetail(); //!< Overrided function, enters details in the .txt file

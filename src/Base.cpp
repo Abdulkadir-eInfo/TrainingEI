@@ -7,17 +7,17 @@ using namespace std;
 
 
 /**
- *  This Function is cehking for proper id format - 
+ *  This Function is cheking for proper id format - 
  *      - has only numbers, not 0, 
  *      - removing unnecessary leading zeros, converting input id to standard form
  *      - Checking if student details with input id already exists or not
  */
-string BaseClass::check_id_before_entering(string id_input){
+string BaseOperations::check_id_before_entering(string id_input){
     string id;
     /** Checking if the user inputted id has only numbers */
     bool id_is_Number=true;
     for(char c:id_input){
-        if(std::isdigit(c)==0)
+        if(isdigit(c)==0)
             id_is_Number=false;
     }
     
@@ -96,13 +96,13 @@ string BaseClass::check_id_before_entering(string id_input){
 }
 
 /** This Function is doing nothing in this parent class */
-void BaseClass::enterdetail()
+void BaseOperations::enterdetail()
 {
     cout << "Displaying Nothing in the Parent class (DisplayALlOperation), instead this function will be overrided in the Derived Class(Operations)" << endl;
 }
 
 /** Function counts the total number of student entries in the file */
-int BaseClass::count_students()
+int BaseOperations::count_students()
 {
     string str1;
     int count=0;
