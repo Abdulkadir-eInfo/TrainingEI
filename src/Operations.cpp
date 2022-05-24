@@ -5,166 +5,131 @@
 using namespace std;
 
 /** Enter student details in the file */
-int Operations::enterdetail()
+int Operations::EnterDetail()
 {
-    string id_input,id;
-	char name[20],location[15],branch[10];
+    int check=0;
 	cout << "\nEnter the student details:" << endl;
-	cout << "ID(1 to 999):";
-	cin >> id_input;
+	cout << "NAME:";
+	cin >> st.name;
 
-    id=check_id_before_entering(id_input);
-    if("-1"==id){
+    check=CheckName(st.name);
+    if(-1==check){
+        cout << "Student Detail with given Name Already present" << endl;
         return 0;
     }
 
-    cout << "Name:";
-    cin >> name;
+    st.id=to_string(ID+vect.size()+1);
     cout << "Branch:";
-    cin >> branch;
+    cin >> st.branch;
     cout << "Location:";
-    cin >> location;
-    ofstream file_write;
-
-    /** Exception Handling to handle file exceptions */
-    try
-    {
-        file_write.open("student.txt",ios::app);
-        file_write << id << "\t" << name << "\t" << branch << "\t" << location << endl;
-        /**
-        * Checking for good bit
-        * The good( ) function returns a non-zero (true) value when no error has occurred; otherwise returns zero (false).
-        */
-        if(file_write.good())
-            cout << "Student Data Inserted Successfully" << endl;
-        file_write.close();
-    }
-    catch(exception& e)
-    {
-        cout << "Exception caught" << endl;
-        file_write.close();
-    }
+    cin >> st.location;
+    
+    vect.push_back(st);
+    
     return 0;
 }
 
-/** Show student details for given ID, reading from file */
-void Operations::showdetail() /**< Virtual Function Definition in Derived Class */
+/** Show student details for given Name */
+void Operations::ShowDetail() /**< Virtual Function Definition in Derived Class */
 {
+    int size=vect.size();
     int is_studentdetail_present=0;
-    string to_check,input_id;
-    string str1,str2,check;
-    cout << "\nEnter the id of the student you want to show data: ";
-    cin >> input_id;
-    /** Converting input id to standard form i.e. 001,011,111 for proper checking with stduent entries present */
-    if(2==input_id.length())
+    string find_name;
+    cout << "Enter the Name of Student you want to Find:" << endl;
+    cin >> find_name;
+    if(0==size)
     {
-        to_check = "0"+input_id;
-    }
-    else if(1==input_id.length())
-    {
-        to_check = "00"+input_id;
+        cout << "No Student Record Present" << endl;
     }
     else
     {
-        to_check=input_id;
-    }
-    ifstream file_read;
-    file_read.exceptions ( ifstream::badbit );
-    /** Exception Handling to handle file exceptions */
-    try
-    {
-        file_read.open("student.txt",ios::in);
-        while ( getline(file_read,str1) )
-        {   
-            str2=str1;
-            check=str2.substr(0,3);
-            if(check==to_check)
-            {
+        vector<mystruct>::iterator ptr;
+        ptr=vect.begin();
+        mystruct find_ptr;
+        for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+        {
+            mystruct mptr=*ptr;
+            if(mptr.name==find_name){
                 is_studentdetail_present=1;
-                cout << "\nId\tName\tBranch\tLocation" << endl;
-                cout << str1 << endl;
+                find_ptr=mptr;
+                break;
             }
         }
-        if(0==is_studentdetail_present)
-            cout << "Student record not found!!!" << endl;
+        if(0==is_studentdetail_present){
+            cout << "Student Record With Given Name Not Found" << endl;
+        }
+        else
+        {
+        cout << "\nId\tName\tBranch\tLocation" << endl;
+        cout << find_ptr.id << "\t" << find_ptr.name << "\t" << find_ptr.branch << "\t" << find_ptr.location << endl;
+        }
+    }
+}
 
-    }
-    catch(const ifstream::failure& e)
+/** Show student details for given ID */
+void Operations::ShowDetail(string find_id) 
+{
+    int size=vect.size();
+    int is_studentdetail_present=0;
+    if(0==size)
     {
-        cout << "Exception opening/reading file";
+        cout << "No Student Record Present" << endl;
     }
-    file_read.close();
+    else
+    {
+        vector<mystruct>::iterator ptr;
+        ptr=vect.begin();
+        mystruct find_ptr;
+        for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+        {
+            mystruct mptr=*ptr;
+            if(mptr.id==find_id){
+                is_studentdetail_present=1;
+                find_ptr=mptr;
+                break;
+            }
+        }
+        if(0==is_studentdetail_present){
+            cout << "Student Record With Given ID Not Found" << endl;
+        }
+        else
+        {
+        cout << "\nId\tName\tBranch\tLocation" << endl;
+        cout << find_ptr.id << "\t" << find_ptr.name << "\t" << find_ptr.branch << "\t" << find_ptr.location << endl;
+        }
+    }
 }
 
 /** Delete student details with given ID */
-void Operations::deletedetail()
+void Operations::DeleteDetail()
 {
+    int size=vect.size();
     int is_studentdetail_present=0;
-    string str1,str2,deleted_string,to_check,check,input_id;
-    cout << "\nEnter the id of the student you want to delete: ";
-    cin >> input_id;
-
-    /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
-    input_id.erase(0, input_id.find_first_not_of('0'));
-    
-    if(2==input_id.length())
+    string find_name;
+    cout << "Enter the Name of Student you want to delete:" << endl;
+    cin >> find_name;
+    if(0==size)
     {
-        to_check = "0"+input_id;
-    }
-    else if(1==input_id.length())
-    {
-        to_check = "00"+input_id;
+        cout << "No Student Record Present" << endl;
     }
     else
     {
-        to_check=input_id;
-    }
-
-    fstream file_readwrite;    /**< For student.txt file */
-    fstream file_readwrite_bkp;     /**< For studentbckp.txt file */
-    /** Exception Handling to handle file exceptions */
-    try
-    {
-        file_readwrite.open("student.txt",ios::in);
-        file_readwrite_bkp.open("studentbckp.txt",ios::out);
-        while ( getline(file_readwrite,str1) )
-        {   
-            str2=str1;
-            check=str2.substr(0,3);
-            /** If the id is same as the id provided by user, the entry of that student in studentbckp.txt will be skipped */
-            if(check==to_check)
-            {
+        vector<mystruct>::iterator ptr;
+        ptr=vect.begin();
+        for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+        {
+            mystruct mptr=*ptr;
+            //cout << mptr.branch << " " << mptr.location ;
+            if(mptr.name==find_name){
                 is_studentdetail_present=1;
-                deleted_string=str2;
-                continue;
+                cout << "Following Student Detail deleted successfully" << endl;
+                cout << mptr.id << "\t" << mptr.name << "\t" << mptr.branch << "\t" << mptr.location  << endl;
+                vect.erase(ptr);
+                break;
             }
-            file_readwrite_bkp << str2 << "\n";
         }
-        file_readwrite.close();
-        file_readwrite_bkp.close();
-
-        /** Copying data from backup to back into the original file */
-        file_readwrite_bkp.open("studentbckp.txt",ios::in);
-        file_readwrite.open("student.txt",ios::out);
-        while ( getline(file_readwrite_bkp,str1) )
-        {   
-            str2=str1;
-            file_readwrite << str2 << "\n";
+        if(0==is_studentdetail_present){
+            cout << "Student Record With Given Name Not Found" << endl;
         }
-        file_readwrite_bkp.close();
-        file_readwrite.close();
-
-        if(0==is_studentdetail_present)
-            cout << "Student record not found!!!" << endl;
-        else if(1==is_studentdetail_present)
-            cout << "\nFollowing record of Student deleted successfully:\n" << deleted_string << endl; 
-
     }
-    catch(exception& e)
-    {
-        cout << "Exception caught" << endl; 
-        file_readwrite.close();
-        file_readwrite_bkp.close();
-    }
-
 }

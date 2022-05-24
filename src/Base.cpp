@@ -4,76 +4,29 @@
 #include "Base.h"
 using namespace std;
 
-
-/**
- *  This Function is cheking for proper id format - 
- *      - has only numbers, not 0, 
- *      - removing unnecessary leading zeros, converting input id to standard form
- *      - Checking if student details with input id already exists or not
- */
-string BaseOperations::check_id_before_entering(string id_input){
-    string id;
-    /** Checking if the user inputted id has only numbers */
-    bool id_is_Number=true;
-    for(char c:id_input){
-        if(0==isdigit(c))
-            id_is_Number=false;
-    }
-    
-    if(false==id_is_Number){
-        cout << "Student ID can only consist Numbers" << endl;
-        return "-1";
-    }
-
-    /** Checking if the user inputted id is 0 */
-    if("0"==id_input)
-    {
-        cout << "\nInvalid Input, ID must be between 1 to 999 only\n" << endl;
-        return "-1";
-    }
-
-    /** Removing unnecessary leading zeros for eg. 0001, 00000001 etc. to get 1 only */
-    id_input.erase(0, id_input.find_first_not_of('0'));
-    
-    /** Converting input id to standard form i.e. 001,011,111 */
-    if(3<id_input.length() || 0==id_input.length())
-    {
-        cout << "\nInvalid Input, ID must be between 1 to 999 only" << endl;
-        return "-1";
-    }
-    if(2==id_input.length())
-    {
-        id = "0"+id_input;
-    }
-    else if(1==id_input.length())
-    {
-        id = "00"+id_input;
-    }
-    else
-    {
-        id=id_input;
-    }
-
-    /** Checking if the student details with given id already exists!!! */
+/** Constructor that transfers data from txt file into the vector, this vector will be used for operations throughout execution */
+BaseOperations::BaseOperations()
+{
+    string line,word;
     ifstream file_read;
-    file_read.exceptions ( ifstream::badbit );
-    string str1,str2,check;
-    int is_id_already_present=0;
+    
     try
     {
         file_read.open("student.txt",ios::in);
-    
+        if(!file_read)
+        {
+            ofstream file_write;
+            file_write.open("student.txt",ios::out);
+            file_write.close();
+        }
+
         /** loop will run until we get line copied into the string i.e. until we reach last line */
-        while ( getline(file_read,str1) )
-        {   str2=str1;
-            /** Get first three characters from the line(which will contain the id of the student) */
-            check=str2.substr(0,3);
-            /** Check if user provided id and id of the student entry is same or not */
-            if(check==id)
-            {
-                is_id_already_present=1;
-                break;
-            }
+        while ( getline(file_read,st.id,'\t') )
+        {
+            getline(file_read,st.name,'\t');
+            getline(file_read,st.branch,'\t');
+            getline(file_read,st.location,'\t');
+            vect.push_back(st);
         }
     }
     catch(const ifstream::failure& e)
@@ -82,47 +35,63 @@ string BaseOperations::check_id_before_entering(string id_input){
     }
     file_read.close();
 
-    /**
-    * If there exists a Student entry with the user-input id
-    * ID will be unique for each student
-    */
-    if(1==is_id_already_present)
-    {
-        cout << "Student Data with given id already exists" << endl;
-        return "-1";
-    }
-    return id;
 }
 
+
+
 /** This Function is doing nothing in this parent class */
-void BaseOperations::enterdetail()
+void BaseOperations::EnterDetail()
 {
     cout << "Displaying Nothing in the Parent class (DisplayALlOperation), instead this function will be overrided in the Derived Class(Operations)" << endl;
 }
 
-/** Function counts the total number of student entries in the file */
-int BaseOperations::count_students()
+/** Checks whether given Name is already present in the list */
+int BaseOperations::CheckName(string checkName)
 {
-    string str1;
-    int count=0;
-    ifstream file_read;
-    file_read.exceptions ( ifstream::badbit );
-    try
+    vector<mystruct>::iterator ptr;
+    ptr=vect.begin();
+    mystruct find_ptr;
+    for (ptr = vect.begin(); ptr < vect.end(); ptr++)
     {
-        file_read.open("student.txt",ios::in);
-
-        /** Getting each line in a string and print it */
-        while ( getline(file_read,str1) )
-        {
-            count++;
+        mystruct mptr=*ptr;
+        if(mptr.name==checkName){
+            return -1;
         }
     }
-    catch(const ifstream::failure& e)
+    return 0;
+}
+
+
+/** Saves data from the vector to txt file */
+void BaseOperations::SaveDataToFile()
+{
+    int size=vect.size();
+    if(0!=size)
     {
-        cout << "Exception opening/reading file";
-        file_read.close();
-        return -1;
+        ofstream file_write;
+        try
+        {
+            file_write.open("student.txt",ios::out);
+            vector<mystruct>::iterator ptr;
+            ptr=vect.begin();
+            mystruct find_ptr;
+            for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+            {
+                mystruct mptr=*ptr;
+                file_write << mptr.id << "\t" << mptr.name << "\t" << mptr.branch << "\t" << mptr.location << "\t";
+            }
+            
+        }
+        catch(const ofstream::failure& e)
+        {
+            cout << "Exception opening/reading file";
+        }
+        file_write.close();
     }
-    file_read.close();
-    return count;
+}
+
+/** Destructor that transfers data from vector into the txt file to make data persistent*/
+BaseOperations::~BaseOperations() 
+{
+    SaveDataToFile();
 }

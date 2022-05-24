@@ -10,31 +10,56 @@ using namespace std;
 int main()
 {
     int choice=1;
-    int count;
+    int count=0;
     cout << "Welcome to the Student System!!!!" << endl;
     DisplayAllOperation ob;  /**< Object of the DisplayAllOperations Class */
-    while(6!=choice)
+    
+    enum MyChoice //!< enum for various choices options in the menu
+    {
+            ENTERDETAIL=1,
+            FIND=2,
+            FIND2=3,
+            DELETE=4,
+            DISPLAYALL=5,
+            DISPLAYALL2=6,
+            QUIT=7
+    };
+
+    while(7!=choice) //!< Loop until user enters 6(Choice for Quitting out)
     {
         cout << "\nMenu:" << endl;
-        cout << "1.Enter the student detail\n2.Find student\n3.Delete a Student\n4.Display All Student Details\n5.Display All Student Details(With Count)\n6.Quit" << endl;
+        cout << "1.Enter the student detail\n2.Find student(By Name)\n3.Find Student(By Id)\n4.Delete a Student\n5.Display All Student Details\n6.Display All Student Details(With Count)\n7.Quit" << endl;
         cout << "Enter your Choice:";
         cin >> choice;
+        string find_id;
         switch(choice)
         {
-                case 1: ob.enterdetail(); //!< Entering Student details
+                case ENTERDETAIL:
+                        ob.EnterDetail(); //!< Entering Student details
                         break;
-                case 2: ob.showdetail(); //!< Showing Student details
+                case FIND: 
+                        ob.ShowDetail(); //!< Showing Student details by Name
                         break;
-                case 3: ob.deletedetail(); //!< Delete a student detail
+                case FIND2: 
+                        cout << "Enter the Id of Student you want to Find:" << endl;
+                        cin >> find_id;
+                        ob.ShowDetail(find_id); //!< Showing Student details by Id
                         break;
-                case 4: ob.displayall(); //!< Display all student entries
+                case DELETE: 
+                        ob.DeleteDetail(); //!< Delete a student detail
                         break;
-                case 5: count = ob.displayall(0); //!< Display all student entries with getting count of entries in return type
+                case DISPLAYALL: 
+                        ob.DisplayAll(); //!< Display all student entries
+                        break;
+                case DISPLAYALL2: 
+                        count = ob.DisplayAll(0); //!< Display all student entries with getting count of entries in return type
                         cout << "Total Student Entries :" << count << endl; 
                         break;
-                case 6: cout << "Quitting you out\n";
+                case QUIT: 
+                        cout << "Quitting you out\n";
                         break;
-                default: cout << "Enter Valid Choice!!!" << endl;
+                default: 
+                        cout << "Enter Valid Choice!!!" << endl;
                         break;
         }
     }
