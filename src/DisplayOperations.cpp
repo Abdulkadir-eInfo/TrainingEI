@@ -21,6 +21,8 @@ void DisplayAllOperation::DisplayAll()
         for (ptr = vect.begin(); ptr < vect.end(); ptr++)
         {
             mptr=*ptr;
+            if(ID<mptr.id)
+                ID=mptr.id;
             cout << mptr.id << "\t" << mptr.name << "\t" << mptr.branch << "\t" << mptr.location  << endl;
             
         }
@@ -31,4 +33,10 @@ void DisplayAllOperation::DisplayAll()
 int DisplayAllOperation::DisplayAll(int x){
     DisplayAll();
     return vect.size();
+}
+
+/** Destructor that transfers data from vector into the txt file to make data persistent*/
+DisplayAllOperation::~DisplayAllOperation()
+{
+    SaveDataToFile();
 }

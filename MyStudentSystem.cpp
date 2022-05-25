@@ -20,25 +20,30 @@ int main()
             FIND=2,
             FIND2=3,
             DELETE=4,
-            DISPLAYALL=5,
-            DISPLAYALL2=6,
-            QUIT=7
+            UPDATE=5,
+            DISPLAYALL=6,
+            DISPLAYALL2=7,
+            QUIT=8
     };
 
-    while(7!=choice) //!< Loop until user enters 6(Choice for Quitting out)
+    while(8!=choice) //!< Loop until user enters 8(Choice for Quitting out)
     {
         cout << "\nMenu:" << endl;
-        cout << "1.Enter the student detail\n2.Find student(By Name)\n3.Find Student(By Id)\n4.Delete a Student\n5.Display All Student Details\n6.Display All Student Details(With Count)\n7.Quit" << endl;
+        cout << "1.Enter the student detail\n2.Find student(By Name)\n3.Find Student(By Id)\n4.Delete a Student\n5.Update Details\n6.Display All Student Details\n7.Display All Student Details(With Count)\n8.Quit" << endl;
         cout << "Enter your Choice:";
         cin >> choice;
-        string find_id;
+        int find_id=0;
+        string find_name;
+        string update;
         switch(choice)
         {
                 case ENTERDETAIL:
                         ob.EnterDetail(); //!< Entering Student details
                         break;
                 case FIND: 
-                        ob.ShowDetail(); //!< Showing Student details by Name
+                        cout << "Enter the Name of Student you want to Find:" << endl;
+                        cin >> find_name;
+                        ob.ShowDetail(find_name); //!< Showing Student details by Name
                         break;
                 case FIND2: 
                         cout << "Enter the Id of Student you want to Find:" << endl;
@@ -47,6 +52,11 @@ int main()
                         break;
                 case DELETE: 
                         ob.DeleteDetail(); //!< Delete a student detail
+                        break;
+                case UPDATE: 
+                        cout << "Enter the Name of Student you want to Update Details:" << endl;
+                        cin >> update;
+                        ob.UpdateDetail(update); //!< Showing Student details by Id
                         break;
                 case DISPLAYALL: 
                         ob.DisplayAll(); //!< Display all student entries
