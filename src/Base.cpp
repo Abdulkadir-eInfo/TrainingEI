@@ -43,8 +43,6 @@ BaseOperations::BaseOperations()
         
 }
 
-
-
 /** This Function is doing nothing in this parent class */
 void BaseOperations::EnterDetail()
 {
@@ -52,17 +50,14 @@ void BaseOperations::EnterDetail()
 }
 
 /** Checks whether given Name is already present in the list */
-int BaseOperations::CheckName(string checkName)
+int BaseOperations::CheckName(const string &checkName)
 {
-    vector<mystruct>::iterator ptr;
-    ptr=vect.begin();
-    mystruct find_ptr;
-    for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+    for (auto &ptr:vect)
     {
-        mystruct mptr=*ptr;
-        if(mptr.name==checkName){
-            return -1;
+        if(ptr.name==checkName)
+        {
+            return FAIL;
         }
     }
-    return 0;
+    return SUCCESS;
 }

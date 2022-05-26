@@ -9,7 +9,7 @@ using namespace std;
 /** MAIN */
 int main()
 {
-    int choice=1;
+    int choice=1; 
     int count=0;
     cout << "Welcome to the Student System!!!!" << endl;
     DisplayAllOperation ob;  /**< Object of the DisplayAllOperations Class */
@@ -26,7 +26,7 @@ int main()
             QUIT=8
     };
 
-    while(8!=choice) //!< Loop until user enters 8(Choice for Quitting out)
+    while(QUIT!=choice) //!< Loop until user enters 8(Choice for Quitting out)
     {
         cout << "\nMenu:" << endl;
         cout << "1.Enter the student detail\n2.Find student(By Name)\n3.Find Student(By Id)\n4.Delete a Student\n5.Update Details\n6.Display All Student Details\n7.Display All Student Details(With Count)\n8.Quit" << endl;

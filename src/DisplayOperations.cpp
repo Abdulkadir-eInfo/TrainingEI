@@ -7,30 +7,26 @@ using namespace std;
 /** Displays all the student entries */
 void DisplayAllOperation::DisplayAll()
 {
-    int size=vect.size();
-    if(0==size)
+    if(0==vect.size())
     {
         cout << "No Student Record Present" << endl;
     }
     else
     {
         cout << "\nId\tName\tBranch\tLocation" << endl;
-        vector<mystruct>::iterator ptr;
-        ptr=vect.begin();
-        mystruct mptr;
-        for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+        for (auto &ptr:vect)
         {
-            mptr=*ptr;
-            if(ID<mptr.id)
-                ID=mptr.id;
-            cout << mptr.id << "\t" << mptr.name << "\t" << mptr.branch << "\t" << mptr.location  << endl;
+            if(ID<ptr.id)
+                ID=ptr.id;
+            cout << ptr.id << "\t" << ptr.name << "\t" << ptr.branch << "\t" << ptr.location  << endl;
             
         }
     }
 }
 
 /** Displayall function that displays all entries along with count of entries */
-int DisplayAllOperation::DisplayAll(int x){
+int DisplayAllOperation::DisplayAll(int x)
+{
     DisplayAll();
     return vect.size();
 }
