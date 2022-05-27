@@ -36,9 +36,9 @@ BaseOperations::BaseOperations()
     }
     file_read.close();
 
-    if(0==vect.size())
+    if(VectorIsEmpty()==true)
         ID=100;
-    else if(0<vect.size())
+    else
         ID=stoi(My_Id);
         
 }
@@ -60,4 +60,13 @@ int BaseOperations::CheckName(const string &checkName)
         }
     }
     return SUCCESS;
+}
+
+/** Checks whether the Vector is Empty or Not; returns true if Vector is empty */
+bool BaseOperations::VectorIsEmpty()
+{
+    if(vect.size()==0)
+        return true;
+    else
+        return false;
 }

@@ -4,10 +4,10 @@
 #include "Operations.h"
 using namespace std;
 
-/** Enter student details in the file */
-int Operations::EnterDetail()
+/** Used to get input of student details from User */
+int Operations::InputDetail()
 {
-	cout << "\nEnter the student details:" << endl;
+    cout << "\nEnter the student details:" << endl;
 	cout << "NAME:";
 	cin >> st.name;
 
@@ -21,22 +21,25 @@ int Operations::EnterDetail()
     cin >> st.branch;
     cout << "Location:";
     cin >> st.location;
-    
-    vect.push_back(st);
-    SaveDataToFile();
+
     return SUCCESS;
+}
+
+/** Enter student details in the file */
+void Operations::EnterDetail()
+{
+    if(InputDetail()!=FAIL)
+    {
+        vect.push_back(st);
+        SaveDataToFile();
+    }
 }
 
 /** Show student details for given Name */
 int Operations::ShowDetail(const string &find_name) /**< Virtual Function Definition in Derived Class */
 {
     int is_studentdetail_present=0;
-    if(0==vect.size())
-    {
-        cout << "No Student Record Present" << endl;
-        return FAIL;
-    }
-    else
+    if(VectorIsEmpty()!=true)
     {
         mystruct find_ptr;
         for (auto &ptr:vect)
@@ -59,17 +62,14 @@ int Operations::ShowDetail(const string &find_name) /**< Virtual Function Defini
         return find_ptr.id;
         }
     }
+    return SUCCESS;
 }
 
 /** Show student details for given ID */
 void Operations::ShowDetail(int find_id) 
 {
     int is_studentdetail_present=0;
-    if(0==vect.size())
-    {
-        cout << "No Student Record Present" << endl;
-    }
-    else
+    if(VectorIsEmpty()!=true)
     {
         mystruct find_ptr;
         for (auto &ptr:vect)
@@ -98,11 +98,7 @@ void Operations::DeleteDetail()
     string find_name;
     cout << "Enter the Name of Student you want to delete:" << endl;
     cin >> find_name;
-    if(0==vect.size())
-    {
-        cout << "No Student Record Present" << endl;
-    }
-    else
+    if(VectorIsEmpty()!=true)
     {
         vector<mystruct>::iterator ptr;
         ptr=vect.begin();
@@ -127,7 +123,7 @@ void Operations::DeleteDetail()
 /** Saves data from the vector to txt file */
 void Operations::SaveDataToFile()
 {
-    if(0!=vect.size())
+    if(VectorIsEmpty()!=true)
     {
         ofstream file_write;
         try
@@ -156,23 +152,19 @@ void Operations::UpdateDetail(const string &Update_name)
     int is_update_succesful=0;
     if(-1!=ShowDetail(Update_name))
     {
-        cout << "Enter Updated Details:" << endl;
-        cout << "NAME:";
-        cin >> st.name;
-        cout << "Branch:";
-        cin >> st.branch;
-        cout << "Location:";
-        cin >> st.location;
-        vector<mystruct>::iterator ptr;
-        ptr=vect.begin();
-        for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+        if(InputDetail()!=FAIL)
         {
-            mystruct mptr=*ptr;
-            if(mptr.id==st.id){
-                is_update_succesful=1;
-                vect.erase(ptr);
-                vect.insert(ptr,st);
-                break;
+            vector<mystruct>::iterator ptr;
+            ptr=vect.begin();
+            for (ptr = vect.begin(); ptr < vect.end(); ptr++)
+            {
+                mystruct mptr=*ptr;
+                if(mptr.id==st.id){
+                    is_update_succesful=1;
+                    vect.erase(ptr);
+                    vect.insert(ptr,st);
+                    break;
+                }
             }
         }
         if(is_update_succesful)

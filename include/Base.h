@@ -27,6 +27,7 @@ class BaseOperations
 	void EnterDetail(); //!< Function is doing nothing in the parent class, will be overrided in the child class
 	int CheckName(const std::string&); //!< Checks whether given Name is already present in the list
 	virtual int ShowDetail(const std::string&)=0; //!< Showdetail function has no implementation here, will be implemented in dervied class
+	bool VectorIsEmpty(); //!< Checks whether the Vector is Empty or Not
 };
 
 #endif

@@ -7,11 +7,7 @@ using namespace std;
 /** Displays all the student entries */
 void DisplayAllOperation::DisplayAll()
 {
-    if(0==vect.size())
-    {
-        cout << "No Student Record Present" << endl;
-    }
-    else
+    if(VectorIsEmpty()!=true)
     {
         cout << "\nId\tName\tBranch\tLocation" << endl;
         for (auto &ptr:vect)
@@ -21,6 +17,10 @@ void DisplayAllOperation::DisplayAll()
             cout << ptr.id << "\t" << ptr.name << "\t" << ptr.branch << "\t" << ptr.location  << endl;
             
         }
+    }
+    else
+    {
+        cout << "No Student Record Present" << endl;
     }
 }
 
