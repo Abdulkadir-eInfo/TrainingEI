@@ -16,7 +16,6 @@ int Operations::InputDetail()
         return FAIL;
     }
 
-    st.id=ID++;
     cout << "Branch:";
     cin >> st.branch;
     cout << "Location:";
@@ -30,6 +29,7 @@ void Operations::EnterDetail()
 {
     if(InputDetail()!=FAIL)
     {
+        st.id=ID++;
         vect.push_back(st);
         SaveDataToFile();
     }
@@ -150,10 +150,12 @@ void Operations::UpdateDetail(const string &Update_name)
 {
     string name,branch, location;
     int is_update_succesful=0;
-    if(-1!=ShowDetail(Update_name))
+    int Id=ShowDetail(Update_name);
+    if(-1!=Id)
     {
         if(InputDetail()!=FAIL)
         {
+            st.id=Id;
             vector<mystruct>::iterator ptr;
             ptr=vect.begin();
             for (ptr = vect.begin(); ptr < vect.end(); ptr++)
@@ -169,7 +171,7 @@ void Operations::UpdateDetail(const string &Update_name)
         }
         if(is_update_succesful)
         {
-            cout << "Updated Details of ID" << st.id << "Successfully" << endl;
+            cout << "Updated Details of ID: " << st.id << " Successfully" << endl;
         }
     }
     SaveDataToFile();
